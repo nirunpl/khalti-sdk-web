@@ -26,7 +26,7 @@ const MobileBanking = ({
   const [mobile, setMobileNumber] = useState(null);
   const [errMobile, setErrMobile] = useState(false);
   const changeMobile = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setMobileNumber(e.target.value);
   };
 
@@ -34,11 +34,11 @@ const MobileBanking = ({
     let value = e.target.value;
     if (value) {
       value = value.toLowerCase();
-      let filtered = bank_list.filter(i => {
+      let filtered = bank_list.filter((i) => {
         let bank = `${i.name} ${i.short_name}`.toLowerCase();
-        return bank.includes(value)
+        return bank.includes(value);
       });
-      setFilteredList(filtered)
+      setFilteredList(filtered);
     } else {
       setFilteredList(bank_list);
     }
@@ -85,7 +85,7 @@ const MobileBanking = ({
               bank: bank_selected.idx,
               mobile,
               product_url,
-              ...others
+              ...others,
             })}`
           );
         } catch (err) {
@@ -97,7 +97,7 @@ const MobileBanking = ({
     }
   };
   const removeBankSelect = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setBankSelected(null);
   };
   const onMobileBlur = (e) => {
@@ -110,14 +110,14 @@ const MobileBanking = ({
         <div className={styles.bankSelectOuterdiv}>
           <div className={styles.bankSelect}>
             <div className="ui padded basic segment">
-            <h3>
-              <img
-                className="ui avatar image"
-                style={{ marginRight: "10px" }}
-                src={bank_selected.logo}
-              />
-              {bank_selected.name}
-            </h3>
+              <h3>
+                <img
+                  className="ui avatar image"
+                  style={{ marginRight: "10px" }}
+                  src={bank_selected.logo}
+                />
+                {bank_selected.name}
+              </h3>
               <div className="ui grid">
                 <div className="eight wide computer sixteen wide mobile column">
                   <div className="ui form ">
@@ -135,10 +135,7 @@ const MobileBanking = ({
                       )}
                     </div>
                     {amount && (
-                      <div
-                        className="ui button primary"
-                        onClick={initiatePay}
-                      >
+                      <div className="ui button primary" onClick={initiatePay}>
                         Pay Rs. {amount / 100} /-
                       </div>
                     )}
@@ -182,7 +179,7 @@ const MobileBanking = ({
           </div>
         </div>
         <div className={styles.fullheight}>
-          {loading && <div className='ui loading basic segment'></div>}
+          {loading && <div className="ui loading basic segment"></div>}
           <div className={"ui grid "}>
             {filtered_list &&
               filtered_list.map((item, index) => (
@@ -193,24 +190,32 @@ const MobileBanking = ({
                 >
                   <div
                     className={`${styles.IconContent}  ServiceListIcon pointer ${styles.fullWide}`}
-                    style={{ display: "block", justifyContent: 'center', aligItems: 'center', display: 'grid'}}
+                    style={{
+                      display: "block",
+                      justifyContent: "center",
+                      aligItems: "center",
+                      display: "grid",
+                    }}
                   >
-                      <div className={`ui raised circular segment ${styles.bankImageWrapper}`}>
-                        <img className={`ui tiny centered image ${styles.bankImageItem}`} src={item.logo} />
-                      </div>
-                    </div>
-                    <div className={styles.ServiceName}>
-                    {item.short_name}
+                    <div
+                      className={`ui raised circular segment ${styles.bankImageWrapper}`}
+                    >
+                      <img
+                        className={`ui tiny centered image ${styles.bankImageItem}`}
+                        src={item.logo}
+                      />
                     </div>
                   </div>
-              ))}
-              {filtered_list && filtered_list.length == 0 && (
-                  <div className="column">
-                    <div className="ui message">
-                      Sorry no bank could be found. Please try again.
-                    </div>
+                  <div className={styles.ServiceName}>{item.short_name}</div>
                 </div>
-              )}
+              ))}
+            {filtered_list && filtered_list.length == 0 && (
+              <div className="column">
+                <div className="ui message">
+                  Sorry no bank could be found. Please try again.
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
